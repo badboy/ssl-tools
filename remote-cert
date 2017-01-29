@@ -7,7 +7,7 @@ while [ -n "$1" ]; do
   port="${1#*:}"
   [ "$host" = "$port" ] && port=443
 
-  echo | openssl s_client -connect ${host}:${port} 2>&1 |\
+  echo | openssl s_client -servername ${host} -connect ${host}:${port} 2>&1 |\
     sed -nEe '/^-+BEGIN/,/^-+END/p'
 
   shift 1
